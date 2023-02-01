@@ -6,6 +6,13 @@ from src.commands.signup_user import SignupUser
 import json
 
 class TestUserRoutes():
+  USER_NAME = "William"
+  USER_EMAIL = "wr.ravelo@uniandes.edu.co"
+  USER_CITY = "Bogotá"
+  USER_PHONE = "12312412"
+  USER_PASSWORD = "123456"
+  BASE_PATH = '/user'
+
   def setup_method(self):
     Base.metadata.create_all(engine)
     self.session = Session()
@@ -13,13 +20,13 @@ class TestUserRoutes():
   def test_create_user(self):
     with app.test_client() as test_client:
       response = test_client.post(
-        '/users', json={
-          'name': 'William',
-          'email': 'wr.ravelo@uniandes.edu.co',
+        self.BASE_PATH, json={
+          'name': self.USER_NAME,
+          'email': self.USER_EMAIL,
           'birth_day': datetime.now().date().isoformat(),
-          'city': 'Bogotá',
-          'phone': '123123',
-          'password': '123456'
+          'city': self.USER_CITY,
+          'phone': self.USER_PHONE,
+          'password': self.USER_PASSWORD
         }
       )
       response_json = json.loads(response.data)
@@ -32,24 +39,24 @@ class TestUserRoutes():
   def test_create_user_missing_fields(self):
     with app.test_client() as test_client:
       response = test_client.post(
-        '/users', json={}
+        self.BASE_PATH, json={}
       )
       assert response.status_code == 400
 
   def test_create_existing_email(self):
     data = {
-      'name': 'William',
-      'email': 'wr.ravelo@uniandes.edu.co',
+      'name': self.USER_NAME,
+      'email': self.USER_EMAIL,
       'birth_day': datetime.now().date().isoformat(),
-      'city': 'Bogotá',
-      'phone': '123123',
-      'password': '123456'
+      'city': self.USER_CITY,
+      'phone': self.USER_PHONE,
+      'password': self.USER_PASSWORD
     }
     SignupUser(data.copy()).execute()
 
     with app.test_client() as test_client:
       response = test_client.post(
-        '/users', json=data
+        self.BASE_PATH, json=data
       )
       assert response.status_code == 412
 
