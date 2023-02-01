@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_wtf.csrf import CSRFProtect
 from .session import engine
 from .models.model import Base
 from .routes.health_routes import health_routes
@@ -15,3 +16,6 @@ def handle_exception(err):
       "mssg": err.description 
     }
     return jsonify(response), err.code
+
+csrf = CSRFProtect()
+csrf.init_app(app)
