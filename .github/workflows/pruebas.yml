@@ -1,19 +1,12 @@
-name: CI
-
-# Controls when the action will run.
+name: Unit tests
 on:
   push:
     branches:
       - main
   pull_request:
-    branches: [ develop, master ]
-  pull_request_review:
-    types: [ submitted ]
-    branches: [ develop, master ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    types: [opened, synchronize, reopened]
 jobs:
-  job1:
+  tests:
     name: Pruebas
     runs-on: ubuntu-latest
     steps:
