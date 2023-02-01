@@ -8,6 +8,13 @@ from sqlalchemy.orm import close_all_sessions
 
 
 class TestSignupUser():
+  USER_NAME = "William"
+  USER_EMAIL = "wr.ravelo@uniandes.edu.co"
+  USER_CITY = "Bogotá"
+  USER_PHONE = "12312412"
+  USER_PASSWORD = "123456"
+  BASE_PATH = '/users'
+
   def setup_method(self):
     Base.metadata.create_all(engine)
     self.session = Session()
@@ -23,19 +30,19 @@ class TestSignupUser():
 
   def test_create_existing_email(self):
     first_data = {
-      'name': 'William',
-      'email': 'wr.ravelo@uniandes.edu.co',
+      'name': self.USER_NAME,
+      'email': self.USER_EMAIL,
       'birth_day': datetime.now().date().isoformat(),
-      'city': 'Bogotá',
-      'phone': '123123',
-      'password': '123456'
+      'city': self.USER_CITY,
+      'phone': self.USER_PHONE,
+      'password': self.USER_PASSWORD
     }
     SignupUser(first_data).execute()
 
     try:
       second_data = {
         'name': 'Otro',
-        'email': 'wr.ravelo@uniandes.edu.co',
+        'email': self.USER_EMAIL,
         'birth_day': datetime.now().date().isoformat(),
         'city': 'Medellin',
         'phone': '5432432',
@@ -51,12 +58,12 @@ class TestSignupUser():
 
   def test_create_user(self):
     data = {
-      'name': 'William',
-      'email': 'wr.ravelo@uniandes.edu.co',
+      'name': self.USER_NAME,
+      'email': self.USER_EMAIL,
       'birth_day': datetime.now().date().isoformat(),
-      'city': 'Bogotá',
-      'phone': '123123',
-      'password': '123456'
+      'city': self.USER_CITY,
+      'phone': self.USER_PHONE,
+      'password': self.USER_PASSWORD
     }
     user = SignupUser(data).execute()
 

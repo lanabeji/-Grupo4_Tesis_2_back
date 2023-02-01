@@ -11,7 +11,7 @@ class TestUserRoutes():
   USER_CITY = "Bogotá"
   USER_PHONE = "12312412"
   USER_PASSWORD = "123456"
-  BASE_PATH = '/user'
+  BASE_PATH = '/users'
 
   def setup_method(self):
     Base.metadata.create_all(engine)
