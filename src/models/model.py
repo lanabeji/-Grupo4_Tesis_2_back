@@ -6,9 +6,9 @@ Base = declarative_base()
 
 class Model():
   id = Column(Integer, primary_key=True)
-  createdAt = Column(DateTime)
-  updatedAt = Column(DateTime)
+  created_at = Column(DateTime)
+  updated_at = Column(DateTime)
 
   def __init__(self):
-    self.createdAt = datetime.now()
-    self.updatedAt = datetime.now()
+    self.created_at = datetime.now()
+    self.updated_at = datetime.now()
