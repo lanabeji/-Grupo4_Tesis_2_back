@@ -1,0 +1,12 @@
+wheel
+pytest
+sqlalchemy
+psycopg2
+flask
+marshmallow
+python-abc
+requests
+pytest-cov
+pytest-mock
+pytest-env
+flask_wtf

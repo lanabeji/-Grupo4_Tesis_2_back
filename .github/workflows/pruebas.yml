@@ -1,18 +1,24 @@
-name: CI
-
-# Controls when the action will run.
+name: Unit tests
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [ develop ]
-  pull_request_review:
-    types: [ submitted ]
-    branches: [ develop ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    types: [opened, synchronize, reopened]
 jobs:
-  job1:
+  tests:
     name: Pruebas
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12.3
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: dermoapp_test
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
     - name: Checkout de repositorio
       uses: actions/checkout@v2
@@ -26,7 +32,7 @@ jobs:
         pip install -r requirements.txt
     - name: Correr pruebas
       id: correr-pruebas
-      run: python -m unittest tests/*.py
+      run: pytest --cov=src -v -s --cov-fail-under=80
     - name: Validar resultado con errores
       if: ${{ failure() }}
       env:
