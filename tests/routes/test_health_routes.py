@@ -3,7 +3,7 @@ from src.models.model import Base
 from src.main import app
 import json
 
-class TestRoutes():
+class TestHealthRoutes():
   def setup_method(self):
     Base.metadata.create_all(engine)
     self.session = Session()
