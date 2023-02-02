@@ -17,6 +17,13 @@ class TestHealthRoutes():
       assert response.status_code == 200
       assert 'status' in response_json
 
+  def test_reset(self):
+    with app.test_client() as test_client:
+      response = test_client.post(
+        '/reset'
+      )
+      assert response.status_code == 200
+
   def teardown_method(self):
     self.session.close()
     Base.metadata.drop_all(bind=engine)
