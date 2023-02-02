@@ -4,7 +4,7 @@ class ApiError(Exception):
 
 class UserAlreadyExists(ApiError):
     code = 412
-    description = "User with username or email already exists"
+    description = "Usuario con username o email ya existe"
 
 class InvalidParams(ApiError):
     code = 400
