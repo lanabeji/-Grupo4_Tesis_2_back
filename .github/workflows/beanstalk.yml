@@ -20,6 +20,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: dermoapp
         environment_name: dermoapp-server
-        version_label: 12345
+        version_label: ${{ env.VERSION }}
         region: us-east-1
         deployment_package: ${{ env.VERSION }}.zip
