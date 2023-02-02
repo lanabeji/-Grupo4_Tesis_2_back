@@ -24,7 +24,7 @@ pip install -r ./requirements.txt
 ## Run server
 
 ```bash
-flask run -h 0.0.0.0 --port=8080
+FLASK_APP=./src/main.py flask run -h 0.0.0.0 --port=8080
 ```
 
 ## Run tests
