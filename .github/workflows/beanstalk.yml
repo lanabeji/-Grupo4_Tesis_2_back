@@ -9,8 +9,10 @@ jobs:
     steps:
     - name: Checkout source code
       uses: actions/checkout@v2
+    - name: Generate version from timestamp
+      run: echo VERSION=$(date +%s) >> $GITHUB_ENV
     - name: Generate deployment package
-      run: zip -r deploy.zip . -x '*.git*'
+      run: zip -r ${{ env.VERSION }}.zip . -x '*.git*'
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
       with:
@@ -20,4 +22,4 @@ jobs:
         environment_name: dermoapp-server
         version_label: 12345
         region: us-east-1
-        deployment_package: deploy.zip
+        deployment_package: ${{ env.VERSION }}.zip
