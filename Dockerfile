@@ -14,4 +14,6 @@ RUN pip install -r ./requirements.txt
 
 EXPOSE 8080
 
+ENV FLASK_APP="./src/main.py"
+
 ENTRYPOINT ["flask", "run", "-h", "0.0.0.0", "--port=8080"]
