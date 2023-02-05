@@ -15,7 +15,7 @@ class SpecialistIsNotRegister(ApiError):
     description = "Especialista aún no registrado"
 
 class SpecialistWrongPassword(ApiError):
-    code = 412
+    code = 401
     description = "La contraseña ingresada es incorrecta"
 
 class InvalidParams(ApiError):

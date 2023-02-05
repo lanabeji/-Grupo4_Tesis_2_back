@@ -15,8 +15,11 @@ class LoginSpecialist(BaseCommannd):
         session = Session()
         ph = argon2.PasswordHasher()
         try:
-            u_username = request.json["email"]
-            u_password = request.json["password"]
+            if 'email' not in self.data or 'password' not in self.data:
+                raise InvalidParams()
+            
+            u_username = self.data['email']
+            u_password = self.data['password']
             user = session.query(Specialist).filter_by(email=u_username).first()
 
             if user is None:
